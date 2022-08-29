@@ -9,9 +9,9 @@ let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
 let imgThree = document.getElementById('imgThree');
 
-function Product(name, src) {
+function Product(name, path) {
   this.name = name;
-  this.src = src;
+  this.path = path;
   this.clicks = 0;
   this.views = 0;
   Product.allProductsArray.push(this);
@@ -27,29 +27,29 @@ function getRandomNumber() {
 
 function generateRandomPicture() {
   // call the getRandomNumber
-  let imgOne = getRandomNumber();
-  let imgTwo = getRandomNumber();
-  let imgThree = getRandomNumber();
+  let imgOneIndex = getRandomNumber();
+  let imgTwoIndex = getRandomNumber();
+  let imgThreeIndex = getRandomNumber();
 
-  while (imgOne === imgTwo || imgOne === imgThree || imgTwo === imgThree) {
-    imgOne = getRandomNumber();
-    imgTwo = getRandomNumber();
-    imgThree = getRandomNumber();
+  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex) {
+    imgOneIndex = getRandomNumber();
+    imgTwoIndex = getRandomNumber();
+    imgThreeIndex = getRandomNumber();
   }
-  imgOne.src = Product.allProductsArray[imgOne].src;
-  imgOne.alt = Product.allProductsArray[imgOne].name;
-  imgOne.name = Product.allProductsArray[imgOne].name;
-  Product.allProductsArray[imgOne].views++;
+  imgOne.src = Product.allProductsArray[imgOneIndex].path;
+  imgOne.alt = Product.allProductsArray[imgOneIndex].name;
+  imgOne.name = Product.allProductsArray[imgOneIndex].name;
+  Product.allProductsArray[imgOneIndex].views++;
 
-  imgTwo.src = Product.allProductsArray[imgTwo].src;
-  imgTwo.alt = Product.allProductsArray[imgTwo].name;
-  imgTwo.name = Product.allProductsArray[imgTwo].name;
-  Product.allProductsArray[imgTwo].views++;
+  imgTwo.src = Product.allProductsArray[imgTwoIndex].path;
+  imgTwo.alt = Product.allProductsArray[imgTwoIndex].name;
+  imgTwo.name = Product.allProductsArray[imgTwoIndex].name;
+  Product.allProductsArray[imgTwoIndex].views++;
 
-  imgThree.src = Product.allProductsArray[imgThree].src;
-  imgThree.alt = Product.allProductsArray[imgThree].name;
-  imgThree.name = Product.allProductsArray[imgThree].name;
-  Product.allProductsArray[imgThree].views++;
+  imgThree.src = Product.allProductsArray[imgThreeIndex].path;
+  imgThree.alt = Product.allProductsArray[imgThreeIndex].name;
+  imgThree.name = Product.allProductsArray[imgThreeIndex].name;
+  Product.allProductsArray[imgThreeIndex].views++;
 }
 
 //Event Handlers
@@ -66,6 +66,7 @@ function handleClick(event) {
     }
   }
   if (clicks === maxClicksAllowed) {
+    alert('You have reached the maximum number of selections. Please select "View Results below."');
     imgContainer.removeEventListener('click', handleClick);
     // give the button an event lister and styles so the user
     // knows its an active button:
@@ -81,7 +82,7 @@ function displayResults() {
   let ul = document.getElementById('resultsList');
   for (let i = 0; i < Product.allProductsArray.length; i++) {
     let li = document.createElement('li');
-    li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} view and was clicked ${Product.allProductsArray[i].clicks} times.`;
+    li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} views and was clicked ${Product.allProductsArray[i].clicks} times.`;
     ul.appendChild(li);
   }
 }
