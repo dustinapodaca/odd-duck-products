@@ -98,7 +98,7 @@ new Product('cthulhu', './img/cthulhu.jpg');
 new Product('dog-duck', './img/dog-duck.jpg');
 new Product('dragon', './img/dragon.jpg');
 new Product('pen', './img/pen.jpg');
-new Product('pet-sweep', 'pet-sweep.jpg');
+new Product('pet-sweep', './pet-sweep.jpg');
 new Product('scissors', './img/scissors.jpg');
 new Product('shark', './img/shark.jpg');
 new Product('sweep', './img/sweep.jpg');
