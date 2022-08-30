@@ -4,7 +4,7 @@ let clicks = 0;
 let maxClicksAllowed = 25;
 
 let imgContainer = document.getElementById('imgContainer');
-let resultButton = document.getElementById('resultButton');
+// let resultButton = document.getElementById('resultButton');
 let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
 let imgThree = document.getElementById('imgThree');
@@ -25,11 +25,21 @@ function getRandomNumber() {
   return Math.floor(Math.random() * Product.allProductsArray.length);
 }
 
+let imgIndexArray = [];
+
 function generateRandomPicture() {
   // call the getRandomNumber
-  let imgOneIndex = getRandomNumber();
-  let imgTwoIndex = getRandomNumber();
-  let imgThreeIndex = getRandomNumber();
+  // I need to create a loop here to generate unique pictures.
+  while (imgIndexArray.length < 6) {
+    let random = getRandomNumber();
+    if (!imgIndexArray.includes(random)) {
+      imgIndexArray.push(random);
+    }
+  }
+
+  let imgOneIndex = imgIndexArray.shift();
+  let imgTwoIndex = imgIndexArray.shift();
+  let imgThreeIndex = imgIndexArray.shift();
 
   while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex || imgTwoIndex === imgThreeIndex) {
     imgOneIndex = getRandomNumber();
@@ -66,12 +76,12 @@ function handleClick(event) {
     }
   }
   if (clicks === maxClicksAllowed) {
-    alert('You have reached the maximum number of selections. Please select "View Results below."');
+    alert('You have reached the maximum number of selections.');
     imgContainer.removeEventListener('click', handleClick);
     // give the button an event lister and styles so the user
     // knows its an active button:
-    resultButton.addEventListener('click', displayResults);
-    resultButton.className = 'clicks-allowed';
+    // resultButton.addEventListener('click', displayResults);
+    // resultButton.className = 'clicks-allowed';
     imgContainer.className = 'no-voting';
     displayChart();
   } else {
@@ -79,14 +89,14 @@ function handleClick(event) {
   }
 }
 
-function displayResults() {
-  let ul = document.getElementById('resultsList');
-  for (let i = 0; i < Product.allProductsArray.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} views and was clicked ${Product.allProductsArray[i].clicks} times.`;
-    ul.appendChild(li);
-  }
-}
+// function displayResults() {
+//   let ul = document.getElementById('resultsList');
+//   for (let i = 0; i < Product.allProductsArray.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} views and was clicked ${Product.allProductsArray[i].clicks} times.`;
+//     ul.appendChild(li);
+//   }
+// }
 
 // chart.js
 
@@ -101,7 +111,7 @@ function displayChart() {
     productViews.push(Product.allProductsArray[i].views);
   }
 
-  let chartGraphics = {
+  const chartGraphics = {
     type: 'bar',
     data: {
       labels: productNames,
@@ -114,18 +124,18 @@ function displayChart() {
         borderColor: [
           'orange'
         ],
-        borderWidth: 1
+        borderWidth: 2
       },
       {
         label: '# of Views',
         data: productViews,
         backgroundColor: [
-          'yellow'
-        ],
-        borderColor: [
           'orange'
         ],
-        borderWidth: 1
+        borderColor: [
+          'yellow'
+        ],
+        borderWidth: 2
       }]
     },
     options: {
