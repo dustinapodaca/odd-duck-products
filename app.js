@@ -73,6 +73,7 @@ function handleClick(event) {
     resultButton.addEventListener('click', displayResults);
     resultButton.className = 'clicks-allowed';
     imgContainer.className = 'no-voting';
+    displayChart();
   } else {
     generateRandomPicture();
   }
@@ -85,6 +86,57 @@ function displayResults() {
     li.textContent = `${Product.allProductsArray[i].name} had ${Product.allProductsArray[i].views} views and was clicked ${Product.allProductsArray[i].clicks} times.`;
     ul.appendChild(li);
   }
+}
+
+// chart.js
+
+function displayChart() {
+  let productNames = [];
+  let productClicks = [];
+  let productViews = [];
+
+  for (let i = 0; i < Product.allProductsArray.length; i++) {
+    productNames.push(Product.allProductsArray[i].name);
+    productClicks.push(Product.allProductsArray[i].clicks);
+    productViews.push(Product.allProductsArray[i].views);
+  }
+
+  let chartGraphics = {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  let canvasChart = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(canvasChart, chartGraphics);
 }
 
 new Product('bag', './img/bag.jpg');
@@ -108,6 +160,5 @@ new Product('water-can', './img/water-can.jpg');
 new Product('wine-glass', './img/wine-glass.jpg');
 
 generateRandomPicture();
-
 imgContainer.addEventListener('click', handleClick);
 
