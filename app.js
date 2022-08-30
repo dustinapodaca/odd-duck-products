@@ -124,7 +124,7 @@ function displayChart() {
         borderColor: [
           'orange'
         ],
-        borderWidth: 2
+        borderWidth: 1
       },
       {
         label: '# of Views',
@@ -135,7 +135,7 @@ function displayChart() {
         borderColor: [
           'yellow'
         ],
-        borderWidth: 2
+        borderWidth: 1
       }]
     },
     options: {
