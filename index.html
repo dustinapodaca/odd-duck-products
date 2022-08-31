@@ -8,19 +8,23 @@
 <body>
   <header>
     <h2>Odd Duck Products</h2>
-    <p>Pick a random photo that you like the most!</p>
+    <p>Click on the random photo that you like the most with each selection.</p>
   </header>
   <main>
     <section id="imgContainer">
-      <img id="imgOne" src="" alt="" title="">
-      <img id="imgTwo" src="" alt="" title="">
-      <img id="imgThree" src="" alt="" title="">
+      <img id="imgOne" src="" alt="" title="" class="img">
+      <img id="imgTwo" src="" alt="" title="" class="img">
+      <img id="imgThree" src="" alt="" title="" class="img">
     </section>
-    <div>
+    <!-- <div>
       <button type="button" id="resultButton">View Results</button>
       <ul id="resultsList"></ul>
-    </div>
+    </div> -->
   </main>
+  <div id="chartDiv">
+    <canvas id="myChart"></canvas>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
