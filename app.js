@@ -78,8 +78,6 @@ function handleClick(event) {
   if (clicks === maxClicksAllowed) {
     alert('You have reached the maximum number of selections.');
     imgContainer.removeEventListener('click', handleClick);
-    // give the button an event lister and styles so the user
-    // knows its an active button:
     // resultButton.addEventListener('click', displayResults);
     // resultButton.className = 'clicks-allowed';
     imgContainer.className = 'no-voting';
@@ -116,8 +114,8 @@ function displayChart() {
     data: {
       labels: productNames,
       datasets: [{
-        label: '# of Votes',
-        data: productViews,
+        label: 'Number of Votes',
+        data: productClicks,
         backgroundColor: [
           'yellow',
         ],
@@ -127,13 +125,13 @@ function displayChart() {
         borderWidth: 1
       },
       {
-        label: '# of Views',
+        label: 'Number of Views',
         data: productViews,
         backgroundColor: [
           'orange'
         ],
         borderColor: [
-          'yellow'
+          'orange'
         ],
         borderWidth: 1
       }]
