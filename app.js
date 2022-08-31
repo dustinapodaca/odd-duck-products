@@ -2,12 +2,15 @@
 
 let clicks = 0;
 let maxClicksAllowed = 25;
+let clickCounter = 24;
 
 let imgContainer = document.getElementById('imgContainer');
 // let resultButton = document.getElementById('resultButton');
 let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
 let imgThree = document.getElementById('imgThree');
+
+
 
 function Product(name, path) {
   this.name = name;
@@ -26,6 +29,12 @@ function getRandomNumber() {
 }
 
 let imgIndexArray = [];
+
+// Click Counter
+// onClick called in HTML onclick
+function onClick() { 
+  document.getElementById('clicks').innerHTML = clickCounter;
+}
 
 function generateRandomPicture() {
   // call the getRandomNumber
@@ -68,6 +77,7 @@ function handleClick(event) {
     alert('Please click on an image');
   }
   clicks++;
+  clickCounter--;
   let clickImg = event.target.alt;
   for (let i = 0; i < Product.allProductsArray.length; i++) {
     if (clickImg === Product.allProductsArray[i].name) {
@@ -77,12 +87,17 @@ function handleClick(event) {
   }
   if (clicks === maxClicksAllowed) {
     alert('You have reached the maximum number of selections.');
+
     imgContainer.removeEventListener('click', handleClick);
-    // resultButton.addEventListener('click', displayResults);
-    // resultButton.className = 'clicks-allowed';
     imgContainer.className = 'no-voting';
     displayChart();
   } else {
+    // LOCAL STORAGE STRINGIFY----------------------------------------------------------------
+    // const stringData = JSON.stringify(Product.allProductsArray);
+    const stringData = Product.allProductsArray;
+    // console.log('stringified products >>>', stringData);
+    // LOCAL STORAGE SETITEM --------------------------------------------------------------
+    localStorage.setItem('stringData', JSON.stringify(stringData));
     generateRandomPicture();
   }
 }
@@ -117,10 +132,10 @@ function displayChart() {
         label: 'Number of Votes',
         data: productClicks,
         backgroundColor: [
-          'yellow',
+          'rgb(255, 253, 185)',
         ],
         borderColor: [
-          'orange'
+          'rgb(236, 177, 156)'
         ],
         borderWidth: 1
       },
@@ -128,10 +143,10 @@ function displayChart() {
         label: 'Number of Views',
         data: productViews,
         backgroundColor: [
-          'orange'
+          'rgb(236, 177, 156)'
         ],
         borderColor: [
-          'orange'
+          'rgb(224, 150, 123)'
         ],
         borderWidth: 1
       }]
@@ -148,25 +163,35 @@ function displayChart() {
   const myChart = new Chart(canvasChart, chartGraphics);
 }
 
-new Product('bag', './img/bag.jpg');
-new Product('banana', './img/banana.jpg');
-new Product('bathroom', './img/bathroom.jpg');
-new Product('boots', './img/boots.jpg');
-new Product('breakfast', './img/breakfast.jpg');
-new Product('bubblegum', './img/bubblegum.jpg');
-new Product('chair', './img/chair.jpg');
-new Product('cthulhu', './img/cthulhu.jpg');
-new Product('dog-duck', './img/dog-duck.jpg');
-new Product('dragon', './img/dragon.jpg');
-new Product('pen', './img/pen.jpg');
-new Product('pet-sweep', './img/pet-sweep.jpg');
-new Product('scissors', './img/scissors.jpg');
-new Product('shark', './img/shark.jpg');
-new Product('sweep', './img/sweep.jpg');
-new Product('tauntaun', './img/tauntaun.jpg');
-new Product('unicorn', './img/unicorn.jpg');
-new Product('water-can', './img/water-can.jpg');
-new Product('wine-glass', './img/wine-glass.jpg');
+new Product('Bag', './img/bag.jpg');
+new Product('Banana', './img/banana.jpg');
+new Product('Bathroom', './img/bathroom.jpg');
+new Product('Boots', './img/boots.jpg');
+new Product('Breakfast', './img/breakfast.jpg');
+new Product('Bubblegum', './img/bubblegum.jpg');
+new Product('Chair', './img/chair.jpg');
+new Product('Cthulhu', './img/cthulhu.jpg');
+new Product('Dog-duck', './img/dog-duck.jpg');
+new Product('Dragon', './img/dragon.jpg');
+new Product('Pen', './img/pen.jpg');
+new Product('Pet-sweep', './img/pet-sweep.jpg');
+new Product('Scissors', './img/scissors.jpg');
+new Product('Shark', './img/shark.jpg');
+new Product('Sweep', './img/sweep.jpg');
+new Product('Tauntaun', './img/tauntaun.jpg');
+new Product('Unicorn', './img/unicorn.jpg');
+new Product('Water-can', './img/water-can.jpg');
+new Product('Wine-glass', './img/wine-glass.jpg');
+
+// LOCAL STORAGE RETREVIAL -------------------------------------------------
+const storedProducts = localStorage.getItem('stringData');
+if (storedProducts) {
+  Product.allProductsArray = JSON.parse(storedProducts);
+}
+// console.log('storedProducts', storedProducts);
+// const parsedProducts = JSON.parse(storedProducts);
+// console.log('parsed Products >>>', parsedProducts);
+console.log(storedProducts);
 
 generateRandomPicture();
 imgContainer.addEventListener('click', handleClick);
