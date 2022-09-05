@@ -5,7 +5,7 @@
 ## Odd Duck Products
 
 ---
-#### *created by: Dustin Apodaca*
+#### *created by:* ***Dustin Apodaca***
 
 * Odd Duck Products was created as a lab that demonstrates where Odd Duck wanted me to build an app that displays three potential products side-by-side-by-side, without favoring any single product. As a rule, I needed to manage the size and the aspect ratio of the images.
 
